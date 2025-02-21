@@ -1,5 +1,5 @@
 import express from "express";
-import serverless from 'serverless-http';
+// import serverless from 'serverless-http';
 // import bodyParser from "body-parser";
 // import axios from "axios";
 // import dotenv from "dotenv";
@@ -71,4 +71,6 @@ app.get('/', (req, res) => {
 //     );
 // }
 
-export default serverless(app);
+export default (req, res) => {
+  return app(req, res);
+};
