@@ -72,4 +72,15 @@ async function sendMessage(to, message) {
     );
 }
 
-export default app;
+export default (req, res) => {
+  // Log original URL for debugging
+  console.log("Original req.url:", req.url);
+  
+  // Remove '/api' prefix if present
+  if (req.url.startsWith("/api")) {
+    req.url = req.url.replace(/^\/api/, "") || "/";
+  }
+  
+  console.log("Modified req.url:", req.url);
+  return app(req, res);
+};
