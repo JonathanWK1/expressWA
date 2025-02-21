@@ -14,6 +14,16 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 
+app.get('/test', (req, res) => {
+  const a = req.query.a;
+
+  if (a) {
+    res.send(`Hello World! Test. Value of a: ${a}`);
+  } else {
+    res.send('Hello World! Test.  No "a" parameter provided.');
+  }
+})
+
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const PHONE_NUMBER_ID= process.env.PHONE_NUMBER_ID;
