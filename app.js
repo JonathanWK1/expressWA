@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import dotenv from "dotenv";
+import serverless from 'serverless-http'
 
 dotenv.config()
 
@@ -70,4 +71,11 @@ async function sendMessage(to, message) {
     );
 }
 
-app.listen(3000, () => console.log("🚀 Server running on port 3000"));
+// if (require.main === module) {
+//     app.listen(PORT, () => {
+//       console.log(`Server running on http://localhost:${PORT}`);
+//     });
+//   }
+//   app.listen(3000, () => console.log("🚀 Server running on port 3000"));
+
+module.exports.handler = serverless(app);
