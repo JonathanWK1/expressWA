@@ -61,7 +61,7 @@ app.post("/webhook", async (req, res) => {
 app.post("/sendMessage", async (req,res) => {
     var message = req.body.message;
     if (message) {
-        // await sendMessage(62816996023, message);
+        await sendMessage(62816996023, message);
         console.log(req.body);
     }
     res.sendStatus(200);
