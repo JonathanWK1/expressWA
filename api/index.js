@@ -45,7 +45,7 @@ app.post("/webhook", async (req, res) => {
     const text = message.text?.body;  // Message content
 
     console.log(`Received message: ${text} from ${from}`);
-    console.log(req.body);
+    console.log(JSON.stringify(req.body, null, 2));
     //  Auto-reply based on message received
     let replyText = "Sorry, I didn't understand that.";
     if (text.toLowerCase().includes("hello")) {
@@ -62,7 +62,7 @@ app.post("/sendMessage", async (req,res) => {
     var message = req.body.message;
     if (message) {
         await sendMessage(62816996023, message);
-        console.log(req.body);
+        console.log(JSON.stringify(req.body, null, 2));
     }
     res.sendStatus(200);
 })
@@ -80,6 +80,13 @@ async function sendMessage(to, message) {
         },
         { headers: { Authorization: `Bearer ${WHATSAPP_TOKEN}` } }
     );
+}
+
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
 }
 
 export default (req, res) => {
