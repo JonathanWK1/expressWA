@@ -1,8 +1,8 @@
 import express from "express";
+import serverless from 'serverless-http';
 // import bodyParser from "body-parser";
 // import axios from "axios";
 // import dotenv from "dotenv";
-// import serverless from 'serverless-http';
 
 
 const app = express();
