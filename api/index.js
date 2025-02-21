@@ -79,4 +79,4 @@ async function sendMessage(to, message) {
 
 //app.listen(3000, () => console.log("🚀 Server running on port 3000"));
 
-module.exports.handler = serverless(app);
+export const handler = serverless(app);
