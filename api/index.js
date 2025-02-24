@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser";
+import bodyParser, { json } from "body-parser";
 import axios from "axios";
 import dotenv from "dotenv";
 
@@ -45,13 +45,30 @@ app.post("/webhook", async (req, res) => {
 
     console.log(`Received message: ${text} from ${from}`);
     console.log(JSON.stringify(req.body, null, 2));
-    //  Auto-reply based on message received
+
+    const nameMatch = text.match(/Name:\s*(.+)/);
+    const addressMatch = text.match(/Address:\s*(.+)/);
+
+    const name = nameMatch ? nameMatch[1] : null;
+    const address = addressMatch ? addressMatch[1] : null;
+
+    const messageJson = { name, address };
+
     let replyText = text + 
     `\n\n\nHalo Jelek
 
     Halo Jelek 2 <br>  
     `;
-    if (text.toLowerCase().includes("hello")) {
+    if (messageJson.name != null && messageJson.address != null)
+    {
+      replyText = `
+        Name : ${messageJson.name}
+        Address : ${messageJson.address}
+
+        Apakah data sudah benar ?
+      `;
+    }
+    else if (text.toLowerCase().includes("hello")) {
       replyText = "Hi! How can I help you?";
     }
 
