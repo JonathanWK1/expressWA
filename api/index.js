@@ -82,8 +82,9 @@ app.post("/sendMessage", async (req,res) => {
     var message = req.body.message;
     if (message) {
         var phoneId = req.body.phoneId ?? 62816996023;
-        await sendMessage(phoneId, message);
+        var apiRes = await sendMessage(phoneId, message);
         console.log(JSON.stringify(req.body, null, 2));
+        console.log(JSON.stringify(apiRes, null, 2));
         console.log(phoneId);
     }
     res.sendStatus(200);
