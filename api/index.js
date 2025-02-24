@@ -82,9 +82,8 @@ app.post("/sendMessage", async (req,res) => {
     var message = req.body.message;
     if (message) {
         var phoneId = req.body.phoneId ?? 62816996023;
-        var apiRes = await sendMessage(phoneId, message);
         console.log(JSON.stringify(req.body, null, 2));
-        console.log(JSON.stringify(apiRes, null, 2));
+        var apiRes = await sendMessage(phoneId, message);
         console.log(phoneId);
     }
     res.sendStatus(200);
@@ -93,7 +92,7 @@ app.post("/sendMessage", async (req,res) => {
 //  Function to Send a WhatsApp Message
 async function sendMessage(to, message) {
 
-    await axios.post(
+    var apiRes = await axios.post(
         `https://graph.facebook.com/v22.0/${PHONE_NUMBER_ID}/messages`,
         {
             messaging_product: "whatsapp",
@@ -103,6 +102,8 @@ async function sendMessage(to, message) {
         },
         { headers: { Authorization: `Bearer ${WHATSAPP_TOKEN}` } }
     );
+    console.log(JSON.stringify(apiRes, null, 2));
+    return apiRes;
 }
 
 if (!process.env.VERCEL) {
