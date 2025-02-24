@@ -89,6 +89,56 @@ app.post("/sendMessage", async (req,res) => {
     res.sendStatus(200);
 })
 
+
+app.post("/sendMessageTemplate", async (req,res) => {
+  var template = req.body.template;
+  if (template) {
+      var phoneId = req.body.phoneId ?? 62816996023;
+      console.log(JSON.stringify(req.body, null, 2));
+      var apiRes = await sendMessageTemplate(phoneId, template);
+      console.log(phoneId);
+  }
+  res.sendStatus(200);
+})
+
+//  Function to Send a WhatsApp Message
+async function sendMessageTemplate(to, templateName) {
+
+  var apiRes = await axios.post(
+      `https://graph.facebook.com/v22.0/${PHONE_NUMBER_ID}/messages`,
+      {
+          messaging_product: "whatsapp",
+          to: to,
+          type: "template",
+          text: {
+            name: templateName,
+            language: {
+                code: "en_US"
+            }
+          },
+        //   components: [
+        //   {
+        //     type: "body",
+        //     parameters: [
+        //       {
+        //         type: "text",
+        //         text: "First parameter value"
+        //       },
+        //       {
+        //         "type": "text",
+        //         "text": "Second parameter value"
+        //       }
+        //       // add more parameters as needed in order
+        //     ]
+        //   }
+        // ]
+      },
+      { headers: { Authorization: `Bearer ${WHATSAPP_TOKEN}` } }
+  );
+  console.log(JSON.stringify(apiRes.data, null, 2));
+  return apiRes;
+}
+
 //  Function to Send a WhatsApp Message
 async function sendMessage(to, message) {
 
