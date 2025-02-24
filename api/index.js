@@ -1,5 +1,4 @@
 import express from "express";
-import serverless from 'serverless-http';
 import bodyParser from "body-parser";
 import axios from "axios";
 import dotenv from "dotenv";
@@ -47,7 +46,11 @@ app.post("/webhook", async (req, res) => {
     console.log(`Received message: ${text} from ${from}`);
     console.log(JSON.stringify(req.body, null, 2));
     //  Auto-reply based on message received
-    let replyText = "Sorry, I didn't understand that.";
+    let replyText = text + 
+    `\n\n\nHalo Jelek
+
+    Halo Jelek 2 <br>  
+    `;
     if (text.toLowerCase().includes("hello")) {
       replyText = "Hi! How can I help you?";
     }
@@ -61,7 +64,8 @@ app.post("/webhook", async (req, res) => {
 app.post("/sendMessage", async (req,res) => {
     var message = req.body.message;
     if (message) {
-        await sendMessage(62816996023, message);
+        var phoneId = req.body.phoneId ?? 62816996023;
+        await sendMessage(phoneId, message);
         console.log(JSON.stringify(req.body, null, 2));
     }
     res.sendStatus(200);
