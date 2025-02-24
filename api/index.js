@@ -102,7 +102,7 @@ async function sendMessage(to, message) {
         },
         { headers: { Authorization: `Bearer ${WHATSAPP_TOKEN}` } }
     );
-    console.log(JSON.stringify(apiRes, null, 2));
+    console.log(JSON.stringify(apiRes.data, null, 2));
     return apiRes;
 }
 
