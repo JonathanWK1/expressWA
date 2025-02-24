@@ -110,7 +110,7 @@ async function sendMessageTemplate(to, templateName) {
           messaging_product: "whatsapp",
           to: to,
           type: "template",
-          text: {
+          template: {
             name: templateName,
             language: {
                 code: "en_US"
